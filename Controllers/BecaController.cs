@@ -63,10 +63,10 @@ namespace Becas.Controllers
 
         // GET: /Beca/ListaSolicitudes
         [HttpGet]
-        //[Authorize(Roles = "Revisor")]
+        [Authorize(Roles = "Administrador,Revisor")] //solo el admin y revisor podrán verlo
         public IActionResult ListaSolicitudes()
         {
-           var identity = User.Identity as ClaimsIdentity;
+            var identity = User.Identity as ClaimsIdentity;
 
             // Información básica
             var userName = User.Identity?.Name;
@@ -82,18 +82,13 @@ namespace Becas.Controllers
                 .ToList();
 
             // Roles (también son claims)
-           
-
             if (identity?.IsAuthenticated == true)
             {
-                // Roles (también son claims)
                 var roles = identity.FindAll(identity.RoleClaimType)
                                     .Select(c => c.Value)
                                     .ToList();
 
-                
             }
-
 
             var data = _repo.GetAll();
             return View("Lista", data);
@@ -108,3 +103,4 @@ namespace Becas.Controllers
         }
     }
 }
+
