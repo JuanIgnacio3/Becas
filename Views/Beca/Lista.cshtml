@@ -3,10 +3,14 @@
     ViewData["Title"] = "Lista de Solicitudes";
 }
 
-<div class="container">
-    <h2 class="my-4">Solicitudes registradas en esta sesión</h2>
-    <div class="table-responsive">
-        <table class="table table-striped align-middle">
+<div class="contenedor-lista">
+
+    <div class="cabecera-lista text-center mb-4">
+        <h2 class="titulo-lista">Solicitudes registradas en esta sesión</h2>
+    </div>
+
+    <div class="envoltorio-tabla">
+        <table class="tabla-beca">
             <thead>
                 <tr>
                     <th>Nombre</th>
@@ -17,19 +21,24 @@
                     <th>Acciones</th>
                 </tr>
             </thead>
+
             <tbody>
                 @if (Model != null && Model.Any())
                 {
                     foreach (var item in Model)
                     {
                         <tr>
-                            <td>@Html.DisplayFor(m => item.NombreEstudiante)</td>
-                            <td>@Html.DisplayFor(m => item.Cedula)</td>
-                            <td>@Html.DisplayFor(m => item.Canton)</td>
+                            <td>@item.NombreEstudiante</td>
+                            <td>@item.Cedula</td>
+                            <td>@item.Canton</td>
                             <td>@(item.TuvoBecaAnterior ? "Sí" : "No")</td>
-                            <td>@Html.DisplayFor(m => item.Detalle)</td>
-                            <td>
-                                @Html.ActionLink("Solicitar otra", "Create", "Beca", null, new { @class = "btn btn-sm btn-primary" })
+                            <td>@item.Detalle</td>
+
+                            <td class="celda-acciones">
+                                <a href="@Url.Action("Create", "Beca")"
+                                   class="btn-accion btn-extra">
+                                    Solicitar otra
+                                </a>
                             </td>
                         </tr>
                     }
@@ -37,12 +46,15 @@
                 else
                 {
                     <tr>
-                        <td colspan="6" class="text-center text-muted">No hay solicitudes registradas aún.</td>
+                        <td colspan="6" class="sin-datos">No hay solicitudes registradas aún.</td>
                     </tr>
                 }
             </tbody>
         </table>
     </div>
-    <a class="btn btn-secondary" href="@Url.Action("Create", "Beca")">Volver al formulario</a>
-</div>
 
+    <div class="zona-botones mt-3">
+        <a class="btn-volver" href="@Url.Action("Create", "Beca")">Volver al formulario</a>
+    </div>
+
+</div>

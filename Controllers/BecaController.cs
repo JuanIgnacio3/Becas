@@ -66,7 +66,7 @@ namespace Becas.Controllers
         //[Authorize(Roles = "Revisor")]
         public IActionResult ListaSolicitudes()
         {
-           var identity = User.Identity as ClaimsIdentity;
+            var identity = User.Identity as ClaimsIdentity;
 
             // Información básica
             var userName = User.Identity?.Name;
@@ -82,7 +82,7 @@ namespace Becas.Controllers
                 .ToList();
 
             // Roles (también son claims)
-           
+
 
             if (identity?.IsAuthenticated == true)
             {
@@ -91,7 +91,7 @@ namespace Becas.Controllers
                                     .Select(c => c.Value)
                                     .ToList();
 
-                
+
             }
 
 

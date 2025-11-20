@@ -4,6 +4,7 @@ namespace Becas.Models
 {
     public class SolicitudBeca
     {
+        [Key]
         [Display(Name = "Nombre del estudiante")]
         [Required(ErrorMessage = "El nombre es obligatorio.")]
         [MinLength(3, ErrorMessage = "El nombre debe tener al menos 3 caracteres.")]

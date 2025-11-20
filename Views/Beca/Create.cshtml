@@ -2,79 +2,74 @@
 @using Microsoft.AspNetCore.Mvc.Rendering
 @{
     ViewData["Title"] = "Solicitud de Beca";
-  
 }
 
-<div class="beca-header text-center text-white py-4 mb-4">
-    <h1 class="mb-0">Liceo Experimental Bilingüe José Figueres Ferrer</h1>
-    <p class="lead mb-0">Módulo de Gestión de Becas del Comedor</p>
- </div>
+<div class="zona-banner text-center text-white py-4 mb-4">
+    <h1 class="titulo-beca mb-0">Liceo Experimental Bilingüe José Figueres Ferrer</h1>
+    <p class="subtitulo-beca mb-0">Módulo de Gestión de Becas del Comedor</p>
+</div>
 
-<div class="container">
+<div class="contenedor-maestro">
+
     @if (TempData["Mensaje"] != null)
     {
-        <div id="mensajeExito" class="alert alert-success" role="alert">@TempData["Mensaje"]</div>
-        
-        
+        <div id="msgBrillante" class="alert alert-success anim-msg" role="alert">
+            @TempData["Mensaje"]
+        </div>
     }
 
-    <div class="card beca-card shadow-sm">
-        <div class="card-header bg-primary text-white">
+    <div class="tarjeta-beca shadow">
+        <div class="tarjeta-encabezado text-white">
             <h4 class="mb-0">Solicitud de Beca</h4>
-           
         </div>
-        <div class="card-body">
 
-            @using (Html.BeginForm("Create", "Beca", FormMethod.Post, new { @class = "needs-validation", novalidate = "novalidate", id = "formBeca" }))
+        <div class="tarjeta-cuerpo">
+
+            @using (Html.BeginForm("Create", "Beca", FormMethod.Post, new { @class = "veri-form", novalidate = "novalidate", id = "formBeca" }))
             {
-               
                 @Html.AntiForgeryToken()
 
-                @Html.ValidationSummary(true, "Por favor corrija los errores:", new { @class = "text-danger mb-3" })
+                @Html.ValidationSummary(true, "Por favor corrija los errores:", new { @class = "msj-error mb-3" })
 
-                <div class="mb-3">
-                    @Html.LabelFor(m => m.NombreEstudiante, new { @class = "form-label" })
-                    @Html.TextBoxFor(m => m.NombreEstudiante, new { @class = "form-control", placeholder = "Nombre completo del estudiante" })
-                    @Html.ValidationMessageFor(m => m.NombreEstudiante, null, new { @class = "text-danger" })
+                <div class="grupo-input">
+                    @Html.LabelFor(m => m.NombreEstudiante, new { @class = "etiqueta-beca" })
+                    @Html.TextBoxFor(m => m.NombreEstudiante, new { @class = "campo-beca", placeholder = "Nombre completo del estudiante" })
+                    @Html.ValidationMessageFor(m => m.NombreEstudiante, null, new { @class = "msj-error" })
+                </div>
+
+                <div class="grupo-input">
+                    @Html.LabelFor(m => m.Cedula, new { @class = "etiqueta-beca" })
+                    @Html.TextBoxFor(m => m.Cedula, new { @class = "campo-beca", placeholder = "#########", maxlength = 9, inputmode = "numeric" })
+                    @Html.ValidationMessageFor(m => m.Cedula, null, new { @class = "msj-error" })
 
                 </div>
 
-                <div class="mb-3">
-                    @Html.LabelFor(m => m.Cedula, new { @class = "form-label" })
-                    @Html.TextBoxFor(m => m.Cedula, new { @class = "form-control", placeholder = "#########", maxlength = 9, inputmode = "numeric" })
-                    @Html.ValidationMessageFor(m => m.Cedula, null, new { @class = "text-danger" })
-                    @* NO VAN A ESTAR *@
-                    @Html.Password("hiddenField", "1234", new { style = "display:true;" }))
-                    @Html.ActionLink(linkText: "redirigir lista", actionName: "ListaSolicitudes")
-                    @Html.DropDownList("Mi Dropdow", new SelectList(new List<string> { "Opción 1", "Opción 2", "Opción 3" }), "Seleccione una opción", new { @class = "form-select" })
-                </div>
-               
-                <div class="mb-3">
-                    @Html.LabelFor(m => m.Canton, new { @class = "form-label" })
+                <div class="grupo-input">
+                    @Html.LabelFor(m => m.Canton, new { @class = "etiqueta-beca" })
                     @Html.DropDownListFor(m => m.Canton,
-                        new SelectList((IEnumerable<string>)ViewBag.Cantones),
-                        "Seleccione un cantón",
-                        new { @class = "form-select" })
-                    @Html.ValidationMessageFor(m => m.Canton, null, new { @class = "text-danger" })
-                </div>
+                    new SelectList((IEnumerable<string>)ViewBag.Cantones),
+                                "Seleccione un cantón",
+                                new { @class = "campo-select" })
+                @Html.ValidationMessageFor(m => m.Canton, null, new { @class = "msj-error" })
+            </div>
 
-                <div class="mb-3 form-check">
-                    @Html.CheckBoxFor(m => m.TuvoBecaAnterior, new { @class = "form-check-input" })
-                    @Html.LabelFor(m => m.TuvoBecaAnterior, new { @class = "form-check-label" })
-                </div>
+            <div class="form-check grupo-check">
+                @Html.CheckBoxFor(m => m.TuvoBecaAnterior, new { @class = "check-beca" })
+                @Html.LabelFor(m => m.TuvoBecaAnterior, new { @class = "etiqueta-check" })
+            </div>
 
-                <div class="mb-3">
-                    @Html.LabelFor(m => m.Detalle, new { @class = "form-label" })
-                    @Html.TextAreaFor(m => m.Detalle, 6, 50, new { @class = "form-control", placeholder = "Describa la situación socioeconómica" })
-                    @Html.ValidationMessageFor(m => m.Detalle, null, new { @class = "text-danger" })
-                </div>
+            <div class="grupo-input">
+                @Html.LabelFor(m => m.Detalle, new { @class = "etiqueta-beca" })
+                @Html.TextAreaFor(m => m.Detalle, 6, 50, new { @class = "campo-beca", placeholder = "Describa la situación socioeconómica" })
+                @Html.ValidationMessageFor(m => m.Detalle, null, new { @class = "msj-error" })
+            </div>
 
-                <div class="d-flex gap-2">
-                    <button type="submit" class="btn btn-primary" id="btnEnviar">Enviar Solicitud</button>
-                    <a class="btn btn-outline-secondary" href="@Url.Action("ListaSolicitudes", "Beca")">Ver Solicitudes</a>
-                    <a class="btn btn-outline-info" href="@Url.Action("Ejemplos", "Beca")">Ver Ejemplos de Helpers</a>
-                </div>
-            }
+            <div class="zona-botones">
+                <button type="submit" class="btn-envio" id="btnEnviar">Enviar Solicitud</button>
+                <a class="btn-secundario" href="@Url.Action("ListaSolicitudes", "Beca")">Ver Solicitudes</a>
+            </div>
+
+                        }
         </div>
     </div>
 </div>
