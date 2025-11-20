@@ -3,7 +3,10 @@
     ViewData["Title"] = "Lista de Solicitudes";
 }
 
-@if (User.IsInRole("Administrador") || User.IsInRole("Revisor"))
+@if (User.IsInRole("Administrador") 
+    || User.IsInRole("Revisor")
+    || (User.Identity?.Name?.ToLower() == "profesor")
+    || (User.Identity?.Name?.ToLower() == "coordinador"))
 {
     <div class="contenedor-lista efecto-fade">
 
@@ -80,4 +83,3 @@ else
         </div>
     </div>
 }
-
