@@ -1,5 +1,6 @@
 using Becas.Identity;
 using Microsoft.AspNetCore.Identity;
+using Becas.Data; 
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,6 +13,8 @@ builder.Services.AddSession(options =>
     options.Cookie.IsEssential = true;
 });
 builder.Services.AddHttpContextAccessor();
+
+builder.Services.AddScoped<ISolicitudBecaRepository, SessionSolicitudBecaRepository>();
 
 // ---- Identity 100% en memoria ----
 builder.Services.AddSingleton<InMemoryUserStore>();
