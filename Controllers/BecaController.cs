@@ -63,10 +63,10 @@ namespace Becas.Controllers
 
         // GET: /Beca/ListaSolicitudes
         [HttpGet]
-        [Authorize] // solo usuarios logueados; el filtro por rol lo hace la vista
+        //[Authorize(Roles = "Revisor")]
         public IActionResult ListaSolicitudes()
         {
-            var identity = User.Identity as ClaimsIdentity;
+           var identity = User.Identity as ClaimsIdentity;
 
             // Información básica
             var userName = User.Identity?.Name;
@@ -82,13 +82,18 @@ namespace Becas.Controllers
                 .ToList();
 
             // Roles (también son claims)
+           
+
             if (identity?.IsAuthenticated == true)
             {
+                // Roles (también son claims)
                 var roles = identity.FindAll(identity.RoleClaimType)
                                     .Select(c => c.Value)
                                     .ToList();
 
+                
             }
+
 
             var data = _repo.GetAll();
             return View("Lista", data);
@@ -103,5 +108,3 @@ namespace Becas.Controllers
         }
     }
 }
-
-
