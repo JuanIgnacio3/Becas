@@ -31,4 +31,112 @@ input.form-control, select.form-select, textarea.form-control {
   .beca-header h1 { font-size: 1.25rem; }
   .beca-header .lead { font-size: .95rem; }
 }
+/* Contenedor general */
+.contenedor-lista {
+    max-width: 900px;
+    margin: auto;
+    padding: 20px;
+}
+
+/* Título */
+.titulo-lista {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--col-principal);
+}
+
+/* Tabla */
+.envoltorio-tabla {
+    overflow-x: auto;
+}
+
+.tabla-beca {
+    width: 100%;
+    border-collapse: collapse;
+    background: var(--col-blanco);
+    border-radius: var(--radio-suave);
+    overflow: hidden;
+    box-shadow: var(--sombra-suave);
+}
+
+    .tabla-beca thead {
+        background: var(--col-principal);
+        color: var(--col-blanco);
+    }
+
+    .tabla-beca th,
+    .tabla-beca td {
+        padding: 12px 14px;
+        text-align: left;
+        border-bottom: 1px solid #e5e5e5;
+    }
+
+    .tabla-beca tbody tr:hover {
+        background: #f0f4ff;
+    }
+
+/* Acciones */
+.celda-acciones {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+}
+
+.btn-accion {
+    padding: 6px 10px;
+    border-radius: 8px;
+    text-decoration: none;
+    color: #fff;
+    font-size: 0.85rem;
+    font-weight: 600;
+    transition: all .2s;
+}
+
+/* Botón Editar */
+.btn-editar {
+    background: #2fa860;
+}
+
+    .btn-editar:hover {
+        background: #279452;
+    }
+
+/* Botón Eliminar */
+.btn-eliminar {
+    background: #d64444;
+}
+
+    .btn-eliminar:hover {
+        background: #b93636;
+    }
+
+/* Botón Solicitar otra */
+.btn-extra {
+    background: var(--col-principal);
+}
+
+    .btn-extra:hover {
+        background: var(--col-secundario);
+    }
+
+/* Fila sin datos */
+.sin-datos {
+    text-align: center;
+    padding: 25px 0;
+    color: #777;
+}
+
+/* Botón volver */
+.btn-volver {
+    padding: 10px 20px;
+    background: var(--col-principal);
+    color: white;
+    border-radius: var(--radio-suave);
+    text-decoration: none;
+    transition: .2s;
+}
+
+    .btn-volver:hover {
+        background: var(--col-secundario);
+    }
 
