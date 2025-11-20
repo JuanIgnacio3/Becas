@@ -1,0 +1,66 @@
+@model RolesViewModel
+@{
+    ViewData["Title"] = "Roles demo";
+}
+
+<h2 class="mb-4">@ViewData["Title"]</h2>
+
+<div class="row g-4">
+    <div class="col-lg-4">
+        <div class="card h-100 shadow-sm">
+            <div class="card-header bg-primary text-white">
+                Roles disponibles
+            </div>
+            <div class="card-body">
+                <p class="small text-muted">Estos roles viven únicamente en memoria para esta demostración:</p>
+                <ul class="list-group list-group-flush">
+                    @foreach (var role in Model.AvailableRoles)
+                    {
+                        <li class="list-group-item">@role</li>
+                    }
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-8">
+        <div class="card h-100 shadow-sm">
+            <div class="card-header bg-success text-white">
+                Usuarios y sus roles
+            </div>
+            <div class="card-body">
+                <p class="small text-muted">Usa esta vista para enseñar cómo Identity relaciona usuarios con roles.</p>
+                <div class="table-responsive">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Usuario</th>
+                                <th>Roles</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var user in Model.Users)
+                            {
+                                <tr>
+                                    <td>@user.UserName</td>
+                                    <td>
+                                        @if (user.Roles.Any())
+                                        {
+                                            foreach (var role in user.Roles)
+                                            {
+                                                <span class="badge bg-secondary me-1">@role</span>
+                                            }
+                                        }
+                                        else
+                                        {
+                                            <span class="text-muted">Sin roles</span>
+                                        }
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

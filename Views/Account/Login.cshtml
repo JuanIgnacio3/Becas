@@ -1,0 +1,51 @@
+@model LoginViewModel
+@{
+    ViewData["Title"] = "Iniciar sesión";
+}
+
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <h2 class="mb-4 text-center">@ViewData["Title"]</h2>
+        <div class="card shadow-sm">
+            <div class="card-body">
+                <form asp-action="Login" method="post">
+                    @Html.AntiForgeryToken()
+                    <input type="hidden" asp-for="ReturnUrl" />
+                    <div asp-validation-summary="All" class="text-danger"></div>
+
+                    <div class="mb-3">
+                        <label asp-for="UserName" class="form-label"></label>
+                        <input asp-for="UserName" class="form-control" autocomplete="username" />
+                        <span asp-validation-for="UserName" class="text-danger"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="Password" class="form-label"></label>
+                        <input asp-for="Password" class="form-control" autocomplete="current-password" />
+                        <span asp-validation-for="Password" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-check mb-3">
+                        <input asp-for="RememberMe" class="form-check-input" />
+                        <label asp-for="RememberMe" class="form-check-label"></label>
+                    </div>
+
+                    <div class="alert alert-secondary small">
+                        <strong>Usuarios demo:</strong>
+                        <ul class="mb-0">
+                            <li><code>profesor / Demo123$</code> (Administrador, Revisor)</li>
+                            <li><code>coordinador / Demo123$</code> (Revisor)</li>
+                            <li><code>estudiante / Demo123$</code> (Estudiante)</li>
+                        </ul>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary w-100">Ingresar</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

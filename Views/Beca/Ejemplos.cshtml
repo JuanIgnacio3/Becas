@@ -1,0 +1,43 @@
+@{
+    ViewData["Title"] = "Ejemplos de HTML Helpers";
+}
+
+<div class="container">
+    <h2 class="my-4">Ejemplos pedagógicos de HTML Helpers</h2>
+
+    <div class="alert alert-info">Esta página muestra ejemplos de uso de los principales HTML Helpers en ASP.NET MVC (Core) y el HTML que generan.</div>
+
+    <h4>BeginForm</h4>
+    <pre class="bg-light p-2"><code>@@using (Html.BeginForm("Create", "Beca", FormMethod.Post)) { ... }</code></pre>
+    <pre>&lt;form method="post" action="/Beca/Create"&gt;...&lt;/form&gt;</pre>
+
+    <h4>LabelFor</h4>
+    <pre class="bg-light p-2"><code>@@Html.LabelFor(m => m.NombreEstudiante)</code></pre>
+    <pre>&lt;label for="NombreEstudiante"&gt;Nombre del estudiante&lt;/label&gt;</pre>
+
+    <h4>TextBoxFor</h4>
+    <pre class="bg-light p-2"><code>@@Html.TextBoxFor(m => m.Cedula)</code></pre>
+    <pre>&lt;input type="text" id="Cedula" name="Cedula" /&gt;</pre>
+
+    <h4>DropDownListFor</h4>
+    <pre class="bg-light p-2"><code>@@Html.DropDownListFor(m =&gt; m.Canton, new SelectList(ViewBag.Cantones))</code></pre>
+    <pre>&lt;select id="Canton" name="Canton"&gt;...&lt;/select&gt;</pre>
+
+    <h4>CheckBoxFor</h4>
+    <pre class="bg-light p-2"><code>@@Html.CheckBoxFor(m =&gt; m.TuvoBecaAnterior)</code></pre>
+    <pre>&lt;input type="checkbox" id="TuvoBecaAnterior" name="TuvoBecaAnterior" /&gt;</pre>
+
+    <h4>TextAreaFor</h4>
+    <pre class="bg-light p-2"><code>@@Html.TextAreaFor(m =&gt; m.Detalle)</code></pre>
+    <pre>&lt;textarea id="Detalle" name="Detalle"&gt;&lt;/textarea&gt;</pre>
+
+    <h4>ValidationMessageFor</h4>
+    <pre class="bg-light p-2"><code>@@Html.ValidationMessageFor(m =&gt; m.Cedula)</code></pre>
+    <pre>&lt;span class="field-validation-error" data-valmsg-for="Cedula"&gt;&lt;/span&gt;</pre>
+
+    <h4>ValidationSummary</h4>
+    <pre class="bg-light p-2"><code>@@Html.ValidationSummary(true)</code></pre>
+    <pre>&lt;div class="validation-summary-errors"&gt;...&lt;/div&gt;</pre>
+
+    <a class="btn btn-primary mt-3" href="@Url.Action("Create", "Beca")">Ir al formulario</a>
+</div>

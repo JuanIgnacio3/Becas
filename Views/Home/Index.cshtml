@@ -1,0 +1,149 @@
+@using Microsoft.AspNetCore.Mvc.Rendering
+@model Becas.Models.SolicitudBeca
+@{
+    ViewData["Title"] = "Inicio";
+}
+
+<div class="container">
+    <div class="text-center my-4">
+        <h1 class="display-5">Proyecto Pedagógico: HTML Helpers + Validaciones</h1>
+        <p class="lead">Ejemplos interactivos de ASP.NET MVC (Core) y su salida HTML.</p>
+        <div class="mt-3">
+            <a class="btn btn-primary me-2" asp-controller="Beca" asp-action="Create">Ir al formulario de Becas</a>
+            <a class="btn btn-outline-secondary" asp-controller="Beca" asp-action="Ejemplos">Ver página de Ejemplos</a>
+        </div>
+    </div>
+
+    <hr />
+
+    <section class="my-4">
+        <h3>BeginForm</h3>
+        <pre class="bg-light p-2"><code>@@using (Html.BeginForm("Create", "Beca", FormMethod.Post)) { ... }</code></pre>
+        <pre>&lt;form method="post" action="/Beca/Create"&gt;...&lt;/form&gt;</pre>
+    </section>
+
+    <section class="my-4">
+        <h3>LabelFor</h3>
+        <pre class="bg-light p-2"><code>@@Html.LabelFor(m =&gt; m.NombreEstudiante)</code></pre>
+        <pre>&lt;label for="NombreEstudiante"&gt;Nombre del estudiante&lt;/label&gt;</pre>
+    </section>
+
+    <section class="my-4">
+        <h3>TextBoxFor</h3>
+        <pre class="bg-light p-2"><code>@@Html.TextBoxFor(m =&gt; m.Cedula)</code></pre>
+        <pre>&lt;input type="text" id="Cedula" name="Cedula" /&gt;</pre>
+    </section>
+
+    <section class="my-4">
+        <h3>DropDownListFor</h3>
+        <pre class="bg-light p-2"><code>@@Html.DropDownListFor(m =&gt; m.Canton, new SelectList(ViewBag.Cantones))</code></pre>
+        <pre>&lt;select id="Canton" name="Canton"&gt;...&lt;/select&gt;</pre>
+    </section>
+
+    <section class="my-4">
+        <h3>CheckBoxFor</h3>
+        <pre class="bg-light p-2"><code>@@Html.CheckBoxFor(m =&gt; m.TuvoBecaAnterior)</code></pre>
+        <pre>&lt;input type="checkbox" id="TuvoBecaAnterior" name="TuvoBecaAnterior" /&gt;</pre>
+    </section>
+
+    <section class="my-4">
+        <h3>TextAreaFor</h3>
+        <pre class="bg-light p-2"><code>@@Html.TextAreaFor(m =&gt; m.Detalle)</code></pre>
+        <pre>&lt;textarea id="Detalle" name="Detalle"&gt;&lt;/textarea&gt;</pre>
+    </section>
+
+    <section class="my-4">
+        <h3>ValidationMessageFor</h3>
+        <pre class="bg-light p-2"><code>@@Html.ValidationMessageFor(m =&gt; m.Cedula)</code></pre>
+        <pre>&lt;span class="field-validation-error" data-valmsg-for="Cedula"&gt;&lt;/span&gt;</pre>
+    </section>
+
+    <section class="my-4">
+        <h3>ValidationSummary</h3>
+        <pre class="bg-light p-2"><code>@@Html.ValidationSummary(true)</code></pre>
+        <pre>&lt;div class="validation-summary-errors"&gt;...&lt;/div&gt;</pre>
+    </section>
+
+    <hr />
+
+    <section class="my-4">
+        <h3>Demostración en vivo</h3>
+        <p class="text-muted">Completa el mini formulario para ver cómo funcionan los HTML Helpers y las validaciones del lado del cliente y servidor.</p>
+
+        @if (ViewBag.Submitted == true && ViewBag.Ok == true)
+        {
+            <div id="mensajeDemo" class="alert alert-success">Formulario de demostración enviado correctamente.</div>
+        }
+
+        @using (Html.BeginForm("Index", "Home", FormMethod.Post, new { id = "formDemo", @class = "row g-3" }))
+        {
+            @Html.AntiForgeryToken()
+            @Html.ValidationSummary(true, "Corrige los errores:", new { @class = "text-danger" })
+
+            <div class="col-md-6">
+                @Html.LabelFor(m => m.NombreEstudiante, new { @class = "form-label" })
+                @Html.TextBoxFor(m => m.NombreEstudiante, new { @class = "form-control", placeholder = "Nombre completo" })
+                @Html.ValidationMessageFor(m => m.NombreEstudiante, null, new { @class = "text-danger" })
+            </div>
+
+            <div class="col-md-6">
+                @Html.LabelFor(m => m.Cedula, new { @class = "form-label" })
+                @Html.TextBoxFor(m => m.Cedula, new { @class = "form-control", placeholder = "#########", maxlength = 9, inputmode = "numeric" })
+                @Html.ValidationMessageFor(m => m.Cedula, null, new { @class = "text-danger" })
+               
+            </div>
+
+            <div class="col-md-6">
+                @Html.LabelFor(m => m.Canton, new { @class = "form-label" })
+                @Html.DropDownListFor(m => m.Canton, new SelectList((IEnumerable<string>)ViewBag.Cantones), "Seleccione un cantón", new { @class = "form-select" })
+                @Html.ValidationMessageFor(m => m.Canton, null, new { @class = "text-danger" })
+            </div>
+
+            <div class="col-md-6 d-flex align-items-end">
+                <div class="form-check">
+                    @Html.CheckBoxFor(m => m.TuvoBecaAnterior, new { @class = "form-check-input", id = "demoTuvoBeca" })
+                    @Html.LabelFor(m => m.TuvoBecaAnterior, new { @class = "form-check-label" })
+                </div>
+            </div>
+
+            <div class="col-12">
+                @Html.LabelFor(m => m.Detalle, new { @class = "form-label" })
+                @Html.TextAreaFor(m => m.Detalle, 4, 50, new { @class = "form-control", placeholder = "Detalle (al menos 20 caracteres)" })
+                @Html.ValidationMessageFor(m => m.Detalle, null, new { @class = "text-danger" })
+            </div>
+
+            <div class="col-12">
+                <button type="submit" class="btn btn-success">Probar Envío</button>
+                <a class="btn btn-outline-primary ms-2" asp-controller="Beca" asp-action="Create">Abrir formulario completo</a>
+            </div>
+        }
+
+        @if (ViewBag.Submitted == true)
+        {
+            <div class="card mt-4">
+                <div class="card-header">Resultado del modelo</div>
+                <div class="card-body">
+                    @if (ViewBag.Ok == true)
+                    {
+                        <ul class="mb-0">
+                            <li><strong>Nombre:</strong> @Model.NombreEstudiante</li>
+                            <li><strong>Cédula:</strong> @Model.Cedula</li>
+                            <li><strong>Cantón:</strong> @Model.Canton</li>
+                            <li><strong>Tuvo Beca:</strong> @(Model.TuvoBecaAnterior ? "Sí" : "No")</li>
+                            <li><strong>Detalle:</strong> @Model.Detalle</li>
+                        </ul>
+                    }
+                    else
+                    {
+                        <span class="text-danger">El modelo no es válido. Revisa los mensajes.</span>
+                    }
+                </div>
+            </div>
+        }
+    </section>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+    <script src="~/js/beca-validation.js" asp-append-version="true"></script>
+}

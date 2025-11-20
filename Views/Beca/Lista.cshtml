@@ -1,0 +1,48 @@
+@model IEnumerable<Becas.Models.SolicitudBeca>
+@{
+    ViewData["Title"] = "Lista de Solicitudes";
+}
+
+<div class="container">
+    <h2 class="my-4">Solicitudes registradas en esta sesión</h2>
+    <div class="table-responsive">
+        <table class="table table-striped align-middle">
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Cédula</th>
+                    <th>Cantón</th>
+                    <th>Tuvo beca</th>
+                    <th>Detalle</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model != null && Model.Any())
+                {
+                    foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@Html.DisplayFor(m => item.NombreEstudiante)</td>
+                            <td>@Html.DisplayFor(m => item.Cedula)</td>
+                            <td>@Html.DisplayFor(m => item.Canton)</td>
+                            <td>@(item.TuvoBecaAnterior ? "Sí" : "No")</td>
+                            <td>@Html.DisplayFor(m => item.Detalle)</td>
+                            <td>
+                                @Html.ActionLink("Solicitar otra", "Create", "Beca", null, new { @class = "btn btn-sm btn-primary" })
+                            </td>
+                        </tr>
+                    }
+                }
+                else
+                {
+                    <tr>
+                        <td colspan="6" class="text-center text-muted">No hay solicitudes registradas aún.</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    <a class="btn btn-secondary" href="@Url.Action("Create", "Beca")">Volver al formulario</a>
+</div>
+

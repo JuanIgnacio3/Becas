@@ -1,0 +1,9 @@
+@{
+    ViewData["Title"] = "Acceso denegado";
+}
+
+<div class="text-center my-5">
+    <h1 class="display-6 text-danger">@ViewData["Title"]</h1>
+    <p class="lead">Necesitas permisos adicionales para ver esta sección.</p>
+    <a asp-action="Login" class="btn btn-primary">Cambiar de usuario</a>
+</div>
