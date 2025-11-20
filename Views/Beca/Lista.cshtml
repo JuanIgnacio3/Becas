@@ -3,14 +3,16 @@
     ViewData["Title"] = "Lista de Solicitudes";
 }
 
-@* Solo administradores o revisores pueden ver la lista *@
 @if (User.IsInRole("Administrador") || User.IsInRole("Revisor"))
 {
-    <div class="contenedor-lista">
+    <div class="contenedor-lista efecto-fade">
 
-        <h2 class="titulo-lista my-4">Solicitudes registradas en esta sesión</h2>
+        <div class="encabezado-lista">
+            <h2 class="titulo-lista">📑 Solicitudes registradas</h2>
+            <p class="subtitulo-lista">Listado generado durante esta sesión</p>
+        </div>
 
-        <div class="envoltorio-tabla">
+        <div class="envoltorio-tabla tarjeta-beca">
             <table class="tabla-beca">
                 <thead>
                     <tr>
@@ -19,7 +21,7 @@
                         <th>Cantón</th>
                         <th>Tuvo beca</th>
                         <th>Detalle</th>
-                        <th>Acciones</th>
+                        <th style="width:150px;">Acciones</th>
                     </tr>
                 </thead>
 
@@ -32,11 +34,17 @@
                                 <td>@Html.DisplayFor(m => item.NombreEstudiante)</td>
                                 <td>@Html.DisplayFor(m => item.Cedula)</td>
                                 <td>@Html.DisplayFor(m => item.Canton)</td>
-                                <td>@(item.TuvoBecaAnterior ? "Sí" : "No")</td>
+                                <td>
+                                    <span class="badge-estado @(item.TuvoBecaAnterior ? "estado-si" : "estado-no")">
+                                        @(item.TuvoBecaAnterior ? "Sí" : "No")
+                                    </span>
+                                </td>
                                 <td>@Html.DisplayFor(m => item.Detalle)</td>
 
                                 <td class="celda-acciones">
-                                    <a href="@Url.Action("Create", "Beca")" class="btn-accion btn-extra">Solicitar otra</a>
+                                    <a href="@Url.Action("Create", "Beca")" class="btn-accion btn-extra">
+                                        ➕ Solicitar otra
+                                    </a>
                                 </td>
                             </tr>
                         }
@@ -44,23 +52,32 @@
                     else
                     {
                         <tr>
-                            <td colspan="6" class="sin-datos">No hay solicitudes registradas aún.</td>
+                            <td colspan="6" class="sin-datos">
+                                <div class="mensaje-vacio">
+                                    <span class="emoji-vacio">🗂️</span>
+                                    <p>No hay solicitudes registradas aún.</p>
+                                </div>
+                            </td>
                         </tr>
                     }
                 </tbody>
             </table>
         </div>
 
-        <a class="btn-volver" href="@Url.Action("Create", "Beca")">Volver al formulario</a>
+        <div class="contenedor-volver">
+            <a class="btn-volver" href="@Url.Action("Create", "Beca")">⬅ Volver al formulario</a>
+        </div>
     </div>
 }
 else
 {
-    @* Vista para usuarios sin permisos *@
-    <div class="contenedor-lista">
-        <h2 class="titulo-lista my-4">Acceso no autorizado</h2>
-        <p class="text-muted">No tienes permisos para ver la lista de solicitudes.</p>
+    <div class="contenedor-lista efecto-fade">
+        <div class="tarjeta-beca mensaje-error">
+            <h2 class="titulo-lista">🚫 Acceso no autorizado</h2>
+            <p>No tienes permisos para ver la lista de solicitudes.</p>
 
-        <a class="btn-volver" href="@Url.Action("Create", "Beca")">Volver al formulario de solicitud</a>
+            <a class="btn-volver" href="@Url.Action("Create", "Beca")">Volver</a>
+        </div>
     </div>
 }
+

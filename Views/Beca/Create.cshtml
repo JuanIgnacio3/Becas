@@ -5,93 +5,108 @@
     ViewData["Title"] = "Solicitud de Beca";
 }
 
-<div class="beca-header text-center text-white py-4 mb-4">
-    <h1 class="mb-0">Liceo Experimental Bilingüe José Figueres Ferrer</h1>
-    <p class="lead mb-0">Módulo de Gestión de Becas del Comedor</p>
+<div class="beca-header text-center text-white py-5 mb-4 shadow-sm" style="border-radius: 12px;">
+    <h1 class="fw-bold mb-1">Liceo Experimental Bilingüe José Figueres Ferrer</h1>
+    <p class="lead mb-0">Módulo de Gestión de Becas del Comedor Estudiantil</p>
 </div>
 
 <div class="contenedor-lista">
 
     @if (TempData["Mensaje"] != null)
     {
-        <div id="mensajeExito" class="alert alert-success" role="alert">
+        <div id="mensajeExito" class="alert alert-success shadow-sm" role="alert">
             @TempData["Mensaje"]
         </div>
     }
 
-    <div class="card beca-card shadow-sm">
-        <div class="card-header bg-primary text-white">
-            <h4 class="mb-0">Solicitud de Beca</h4>
+    <div class="card beca-card shadow-lg" style="border-radius: 14px;">
+        <div class="card-header text-white" style="background: var(--col-principal); border-radius: 14px 14px 0 0;">
+            <h4 class="mb-0 fw-bold">Formulario de Solicitud</h4>
         </div>
 
-        <div class="card-body">
+        <div class="card-body p-4">
+
             @using (Html.BeginForm("Create", "Beca", FormMethod.Post,
-                        new { @class = "needs-validation", novalidate = "novalidate", id = "formBeca" }))
+                    new { @class = "needs-validation", novalidate = "novalidate", id = "formBeca" }))
             {
                 @Html.AntiForgeryToken()
 
-                @Html.ValidationSummary(true, "Por favor corrija los errores:",
-                new { @class = "text-danger mb-3" })
+                @Html.ValidationSummary(true, "Por favor corrija los siguientes errores:",
+                new { @class = "alert alert-danger" })
 
-            <!-- Nombre -->
-            <div class="mb-3">
-                @Html.LabelFor(m => m.NombreEstudiante, new { @class = "form-label" })
-                @Html.TextBoxFor(m => m.NombreEstudiante,
-                                new { @class = "form-control", placeholder = "Nombre completo del estudiante" })
-                @Html.ValidationMessageFor(m => m.NombreEstudiante, null, new { @class = "text-danger" })
-            </div>
+                <!-- Nombre -->
+                <div class="mb-4">
+                    @Html.LabelFor(m => m.NombreEstudiante, new { @class = "form-label fw-semibold" })
+                    @Html.TextBoxFor(m => m.NombreEstudiante,
+                        new { @class = "form-control form-control-lg shadow-sm",
+                              placeholder = "Nombre completo del estudiante" })
+                    @Html.ValidationMessageFor(m => m.NombreEstudiante, null,
+                        new { @class = "text-danger" })
+                </div>
 
-            <!-- Cédula -->
-            <div class="mb-3">
-                @Html.LabelFor(m => m.Cedula, new { @class = "form-label" })
-                @Html.TextBoxFor(m => m.Cedula,
-                                new
-                                {
-                                    @class = "form-control",
-                                    placeholder = "#########",
-                                    maxlength = 9,
-                                    inputmode = "numeric"
-                                })
-                @Html.ValidationMessageFor(m => m.Cedula, null, new { @class = "text-danger" })
-            </div>
+                <!-- Cédula -->
+                <div class="mb-4">
+                    @Html.LabelFor(m => m.Cedula, new { @class = "form-label fw-semibold" })
+                    @Html.TextBoxFor(m => m.Cedula,
+                        new {
+                            @class = "form-control form-control-lg shadow-sm",
+                            placeholder = "#########",
+                            maxlength = 9,
+                            inputmode = "numeric"
+                        })
+                    @Html.ValidationMessageFor(m => m.Cedula, null,
+                        new { @class = "text-danger" })
+                </div>
 
-            <!-- Cantón -->
-            <div class="mb-3">
-                @Html.LabelFor(m => m.Canton, new { @class = "form-label" })
-                @Html.DropDownListFor(m => m.Canton,
-                                new SelectList((IEnumerable<string>)ViewBag.Cantones),
-                                "Seleccione un cantón",
-                                new { @class = "form-select" })
-                @Html.ValidationMessageFor(m => m.Canton, null, new { @class = "text-danger" })
-            </div>
+                <!-- Cantón -->
+                <div class="mb-4">
+                    @Html.LabelFor(m => m.Canton, new { @class = "form-label fw-semibold" })
+                    @Html.DropDownListFor(m => m.Canton,
+                        new SelectList((IEnumerable<string>)ViewBag.Cantones),
+                        "Seleccione un cantón",
+                        new { @class = "form-select form-select-lg shadow-sm" })
+                    @Html.ValidationMessageFor(m => m.Canton, null,
+                        new { @class = "text-danger" })
+                </div>
 
-            <!-- Tuvo beca anterior -->
-            <div class="mb-3 form-check">
-                @Html.CheckBoxFor(m => m.TuvoBecaAnterior, new { @class = "form-check-input" })
-                @Html.LabelFor(m => m.TuvoBecaAnterior, new { @class = "form-check-label" })
-            </div>
+                <!-- Tuvo beca anterior -->
+                <div class="mb-4 form-check">
+                    @Html.CheckBoxFor(m => m.TuvoBecaAnterior,
+                        new { @class = "form-check-input", style = "transform: scale(1.3);" })
+                    @Html.LabelFor(m => m.TuvoBecaAnterior,
+                        new { @class = "form-check-label fw-semibold ms-2" })
+                </div>
 
-            <!-- Detalle -->
-            <div class="mb-3">
-                @Html.LabelFor(m => m.Detalle, new { @class = "form-label" })
-                @Html.TextAreaFor(m => m.Detalle, 6, 50,
-                                new { @class = "form-control", placeholder = "Describa la situación socioeconómica" })
-                @Html.ValidationMessageFor(m => m.Detalle, null, new { @class = "text-danger" })
-            </div>
+                <!-- Detalle -->
+                <div class="mb-4">
+                    @Html.LabelFor(m => m.Detalle, new { @class = "form-label fw-semibold" })
+                    @Html.TextAreaFor(m => m.Detalle, 6, 50,
+                        new { @class = "form-control shadow-sm",
+                              placeholder = "Describa la situación socioeconómica" })
+                    @Html.ValidationMessageFor(m => m.Detalle, null,
+                        new { @class = "text-danger" })
+                </div>
 
-            <!-- Botones -->
-            <div class="d-flex gap-2">
-                <button type="submit" class="btn-extra btn-accion">Enviar Solicitud</button>
+                <!-- BOTONES -->
+                <div class="d-flex flex-wrap gap-3 mt-4">
+                    <button type="submit" class="btn-extra btn-accion px-4 py-2 fw-bold shadow">
+                        Enviar Solicitud
+                    </button>
 
-                <a class="btn-volver"
-                   href="@Url.Action("ListaSolicitudes", "Beca")">Ver Solicitudes</a>
+                    <a class="btn-volver px-4 py-2 shadow"
+                       href="@Url.Action("ListaSolicitudes", "Beca")">
+                        Ver Solicitudes
+                    </a>
 
-                <a class="btn-volver"
-                   style="background: var(--col-secundario);"
-                   href="@Url.Action("Ejemplos", "Beca")">Ver Ejemplos de Helpers</a>
-            </div>
+                    <a class="btn-volver px-4 py-2 shadow"
+                       style="background: var(--col-secundario);"
+                       href="@Url.Action("Ejemplos", "Beca")">
+                        Ver Ejemplos de Helpers
+                    </a>
+                </div>
 
-                        }
+            }
+
         </div>
     </div>
 </div>
