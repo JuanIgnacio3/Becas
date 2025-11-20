@@ -12,6 +12,27 @@
 
 <div class="contenedor-lista">
 
+    @if (User.Identity?.IsAuthenticated == true)
+    {
+        if (User.IsInRole("Administrador") 
+            || User.IsInRole("Revisor")
+            || (User.Identity?.Name?.ToLower() == "profesor")
+            || (User.Identity?.Name?.ToLower() == "coordinador"))
+        {
+            <div class="alert alert-info shadow-sm mb-3">
+                Estás usando la vista como <strong>Administrador/Revisor</strong>. 
+                Además de completar solicitudes, puedes revisar el listado general.
+            </div>
+        }
+        else
+        {
+            <div class="alert alert-secondary shadow-sm mb-3">
+                Estás usando la vista como <strong>Estudiante</strong>. 
+                Puedes completar y enviar tu solicitud de beca.
+            </div>
+        }
+    }
+
     @if (TempData["Mensaje"] != null)
     {
         <div id="mensajeExito" class="alert alert-success shadow-sm" role="alert">
