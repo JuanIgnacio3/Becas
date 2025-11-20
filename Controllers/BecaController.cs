@@ -63,7 +63,7 @@ namespace Becas.Controllers
 
         // GET: /Beca/ListaSolicitudes
         [HttpGet]
-        [Authorize(Roles = "Administrador,Revisor")] //solo el admin y revisor podrán verlo
+        [Authorize] // solo usuarios logueados; el filtro por rol lo hace la vista
         public IActionResult ListaSolicitudes()
         {
             var identity = User.Identity as ClaimsIdentity;
@@ -103,4 +103,5 @@ namespace Becas.Controllers
         }
     }
 }
+
 
